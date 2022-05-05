@@ -8,33 +8,63 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { Paper } from "@mui/material";
+import { ChangeEvent, useState } from "react";
+import loginUser from "../../helpers/auth";
+import titleFormat from "../../helpers/title-format";
 
-interface User {
-  name: string;
+enum UserRole {
+  Manager = "manager",
+  Animator = "animator",
+  Customer = "customer",
+}
+
+export interface User {
+  email: string;
+  password: string;
   role: UserRole;
 }
 
-enum UserRole {
-  Worker = "Worker",
-  Customer = "Customer",
+interface ChildProps {
+  setToken: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const users: User[] = [
+const users: { name: UserRole; type: "Worker" | "Client" }[] = [
   {
-    name: "Manager",
-    role: UserRole.Worker,
+    name: UserRole.Manager,
+    type: "Worker",
   },
   {
-    name: "Animator",
-    role: UserRole.Worker,
+    name: UserRole.Animator,
+    type: "Worker",
   },
   {
-    name: "Customer",
-    role: UserRole.Customer,
+    name: UserRole.Customer,
+    type: "Client",
   },
 ];
 
-function Login() {
+function Login({ setToken }: ChildProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState<UserRole>(UserRole.Customer);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    // const token = await loginUser({
+    //   email,
+    //   password,
+    //   role,
+    // });
+    setToken(`${email}:${password}:${role}`);
+    // TODO Bind with backend
+    // const token = await loginUser({
+    //   email,
+    //   password,
+    //   role,
+    // });
+    // console.log(role);
+  };
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
@@ -66,24 +96,30 @@ function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Autocomplete
-            id="grouped-demo"
-            options={users.sort((a, b) => b.role[0].localeCompare(a.role[0]))}
-            groupBy={(option) => option.role}
-            getOptionLabel={(option) => option.name}
-            sx={{ mt: 5 }}
-            fullWidth
-            renderInput={(params) => (
-              <TextField {...params} label="User Type" />
-            )}
-            defaultValue={users.at(-1)}
-          />
           <Box
             component="form"
             noValidate
-            onSubmit={() => console.log()}
+            onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
+            <Autocomplete
+              id="grouped-demo"
+              options={users.sort((a, b) => b.type[0].localeCompare(a.type[0]))}
+              groupBy={(option) => option.type}
+              getOptionLabel={(option) => titleFormat(option.name)}
+              sx={{ mt: 5 }}
+              fullWidth
+              renderInput={(params) => (
+                <TextField {...params} label="User Type" />
+              )}
+              defaultValue={users.at(-1)}
+              onChange={(event, newValue) => {
+                if (newValue) {
+                  setRole(UserRole.Customer);
+                }
+                setRole(newValue?.name as UserRole);
+              }}
+            />
             <TextField
               margin="normal"
               required
@@ -93,6 +129,7 @@ function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -103,12 +140,13 @@ function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button
               type="submit"
               variant="contained"
               fullWidth
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 5, mb: 3 }}
             >
               Sign In
             </Button>

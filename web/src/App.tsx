@@ -3,9 +3,13 @@ import Login from "./components/Home/Login";
 import { useState } from "react";
 
 function App() {
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState<string>("");
 
-  return token ? <h1> Signed in </h1> : <Login />;
+  if (token === "") {
+    return <Login setToken={setToken} />;
+  }
+
+  return <h1>Hello World</h1>;
 }
 
 export default App;
