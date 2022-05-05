@@ -1,15 +1,23 @@
 import "./App.css";
-import Login from "./components/Home/Login";
+import LoginPage from "./components/Login/LoginPage";
 import { useState } from "react";
 
-function App() {
+import { UserRole } from "./types/Login";
+import AddPage from "./components/Manager/AddPage";
+import ErrorPage from "./components/Error/ErrorPage";
+
+export default function App() {
   const [token, setToken] = useState<string>("");
+  const [role, setRole] = useState<UserRole>(UserRole.Customer);
 
   if (token === "") {
-    return <Login setToken={setToken} />;
+    return <LoginPage setToken={setToken} setRole={setRole} />;
   }
 
-  return <h1>Hello World</h1>;
+  switch (role) {
+    case UserRole.Manager:
+      return <AddPage />;
+    default:
+      return <ErrorPage />;
+  }
 }
-
-export default App;

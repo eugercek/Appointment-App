@@ -1,4 +1,5 @@
-import {User} from "../components/Home/Login"
+import {User} from "../types/Login"
+
 
 async function loginUser(user:User ) {
  return fetch('http://localhost:8080/login', {

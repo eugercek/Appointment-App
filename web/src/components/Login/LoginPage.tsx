@@ -8,24 +8,14 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { Paper } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import loginUser from "../../helpers/auth";
 import titleFormat from "../../helpers/title-format";
-
-enum UserRole {
-  Manager = "manager",
-  Animator = "animator",
-  Customer = "customer",
-}
-
-export interface User {
-  email: string;
-  password: string;
-  role: UserRole;
-}
+import { UserRole } from "../../types/Login";
 
 interface ChildProps {
   setToken: React.Dispatch<React.SetStateAction<string>>;
+  setRole: React.Dispatch<React.SetStateAction<UserRole>>;
 }
 
 const users: { name: UserRole; type: "Worker" | "Client" }[] = [
@@ -43,10 +33,9 @@ const users: { name: UserRole; type: "Worker" | "Client" }[] = [
   },
 ];
 
-function Login({ setToken }: ChildProps) {
+export default function LoginPage({ setToken, setRole }: ChildProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<UserRole>(UserRole.Customer);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -56,7 +45,7 @@ function Login({ setToken }: ChildProps) {
     //   password,
     //   role,
     // });
-    setToken(`${email}:${password}:${role}`);
+    setToken(`${email}:${password}`);
     // TODO Bind with backend
     // const token = await loginUser({
     //   email,
@@ -168,5 +157,3 @@ function Login({ setToken }: ChildProps) {
     </Grid>
   );
 }
-
-export default Login;
