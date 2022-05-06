@@ -1,14 +1,33 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { Customer } from "../../types/Login";
 
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = (
+  e: React.FormEvent<HTMLFormElement>,
+  customer: Customer
+) => {
   e.preventDefault();
-  // TODO Post request
+  fetch("http://localhost:8080/customer/hi", {
+    method: "POST",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(customer),
+  })
+    .then((res) => res.json())
+    .then((res) => console.log(res));
 };
 
 export default function AddCustomer() {
+  const [customer, setCustomer] = useState<Customer>({} as Customer);
+
+  const handler = (e: any) => {
+    setCustomer({ ...customer, [e.target.name]: e.target.value });
+  };
+
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box component="form" onSubmit={(e: any) => handleSubmit(e, customer)}>
       <Stack m={5} mt={20} alignItems="center">
         <Typography variant="h6" gutterBottom>
           Add Customer
@@ -21,6 +40,9 @@ export default function AddCustomer() {
               label="Vacation Village ID"
               fullWidth
               variant="standard"
+              disabled
+              name="id"
+              onChange={handler}
             />
           </Grid>
           <Grid item xs={12}>
@@ -30,6 +52,8 @@ export default function AddCustomer() {
               label="Name"
               fullWidth
               variant="standard"
+              name="name"
+              onChange={handler}
             />
           </Grid>
           <Grid item xs={12}>
@@ -38,8 +62,9 @@ export default function AddCustomer() {
               id="age"
               label="Age"
               fullWidth
-              type="tel"
+              name="age"
               variant="standard"
+              onChange={handler}
             />
           </Grid>
           <Grid item xs={12}>
@@ -48,8 +73,9 @@ export default function AddCustomer() {
               id="room_no"
               label="Room Number"
               fullWidth
-              type="tel"
+              name="room"
               variant="standard"
+              onChange={handler}
             />
           </Grid>
           <Grid item xs={12}>
@@ -59,7 +85,9 @@ export default function AddCustomer() {
               label="Contact Phone"
               fullWidth
               type="tel"
+              name="phone"
               variant="standard"
+              onChange={handler}
             />
           </Grid>
         </Grid>
