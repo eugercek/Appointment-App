@@ -1,37 +1,24 @@
-import {
-  Autocomplete,
-  Box,
-  Button,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-
-import { Animator } from "../../types/Login";
-
-// TODO Bind to backend to fetch expertise areas
-const expertiseAreas = ["Animation", "Art", "Design", "Film", "Photography"];
+import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Customer } from "../../types/Login";
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   // TODO Post request
 };
 
-export default function AddAnimator() {
-  // TODO Add emojis for links
+export default function AddCustomer() {
   return (
     <Box component="form" onSubmit={handleSubmit}>
       <Stack m={5} mt={20} alignItems="center">
         <Typography variant="h6" gutterBottom>
-          Add Animator
+          Add Customer
         </Typography>
         <Grid container spacing={3} maxWidth={500}>
           <Grid item xs={12}>
             <TextField
               required
               id="id"
-              label="Employee ID"
+              label="Vacation Village ID"
               fullWidth
               variant="standard"
             />
@@ -48,23 +35,31 @@ export default function AddAnimator() {
           <Grid item xs={12}>
             <TextField
               required
-              id="phoneNumber"
-              label="Phone Number"
+              id="age"
+              label="Age"
               fullWidth
               type="tel"
               variant="standard"
             />
           </Grid>
           <Grid item xs={12}>
-            <Autocomplete
-              disablePortal
-              id="expertise-combo"
-              options={expertiseAreas}
-              sx={{ width: 300 }}
-              renderInput={(params) => (
-                // TODO Add multiple expertise areas
-                <TextField {...params} label="Expertise Area" />
-              )}
+            <TextField
+              required
+              id="room_no"
+              label="Room Number"
+              fullWidth
+              type="tel"
+              variant="standard"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="contact_phone"
+              label="Contact Phone"
+              fullWidth
+              type="tel"
+              variant="standard"
             />
           </Grid>
         </Grid>
