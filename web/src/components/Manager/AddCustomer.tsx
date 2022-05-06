@@ -73,7 +73,7 @@ export default function AddCustomer() {
               id="room_no"
               label="Room Number"
               fullWidth
-              name="room"
+              name="roomNumber"
               variant="standard"
               onChange={handler}
             />
@@ -85,7 +85,7 @@ export default function AddCustomer() {
               label="Contact Phone"
               fullWidth
               type="tel"
-              name="phone"
+              name="contactPhone"
               variant="standard"
               onChange={handler}
             />
