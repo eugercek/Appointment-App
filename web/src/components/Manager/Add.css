@@ -1,0 +1,10 @@
+.add-button {
+  width: 400px;
+  height: 600px;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
