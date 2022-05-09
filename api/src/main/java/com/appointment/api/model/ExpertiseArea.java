@@ -29,4 +29,9 @@ public class ExpertiseArea {
         this.name = name;
     }
 
+    public ExpertiseArea(){
+    }
+    public ExpertiseArea(int id){
+        this.id = id;
+    }
 }

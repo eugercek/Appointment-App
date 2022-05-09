@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertTitle,
   Autocomplete,
   Box,
   Button,
@@ -7,25 +9,45 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useInsertionEffect, useState } from "react";
 
 import { Animator } from "../../types/Login";
 
-// TODO Bind to backend to fetch expertise areas
-const expertiseAreas = ["Animation", "Art", "Design", "Film", "Photography"];
-
 const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  animator: Animator
+  animator: Animator,
+  setError: any
 ) => {
   e.preventDefault();
-  const response = await fetch("http://localhost:8080/customer/1");
-  const customers = await response.json();
-  console.log(customers);
+  console.log(animator);
+  const response = await fetch("http://localhost:8080/animators", {
+    method: "POST",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(animator),
+  });
+
+  if (response.status === 200) {
+    console.log("Success");
+    setError(false);
+  } else {
+    setError(true);
+    console.log("Error!!!!!");
+  }
 };
 
 export default function AddAnimator() {
   const [animator, setAnimator] = useState<Animator>({} as Animator);
+  const [error, setError] = useState<false>(false);
+  const [expertiseAreas, setExpertiseAreas] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/animators/expertises")
+      .then((res) => res.json())
+      .then((res) => setExpertiseAreas(res));
+  }, []);
 
   const handler = (e: any) => {
     setAnimator({ ...animator, [e.target.name]: e.target.value });
@@ -33,7 +55,10 @@ export default function AddAnimator() {
 
   // TODO Add emojis for links
   return (
-    <Box component="form" onSubmit={(e: any) => handleSubmit(e, animator)}>
+    <Box
+      component="form"
+      onSubmit={(e: any) => handleSubmit(e, animator, setError)}
+    >
       <Stack m={5} mt={20} alignItems="center">
         <Typography variant="h6" gutterBottom>
           Add Animator
@@ -69,7 +94,7 @@ export default function AddAnimator() {
               fullWidth
               type="number"
               variant="standard"
-              name="phone"
+              name="phoneNumber"
               onChange={handler}
               inputProps={{ maxLength: 10 }}
             />
@@ -78,15 +103,19 @@ export default function AddAnimator() {
             <Autocomplete
               disablePortal
               id="expertise-combo"
+              // TODO ZORT any
               options={expertiseAreas}
+              getOptionLabel={(option: any) => option.name}
               sx={{ width: 300 }}
+              onChange={(event, newValue: any) => {
+                setAnimator((p) => ({ ...p, expertiseArea: newValue.id }));
+              }}
               renderInput={(params) => (
                 // TODO Add multiple expertise areas
                 <TextField
                   {...params}
                   label="Expertise Area"
-                  name="expertise"
-                  onChange={handler}
+                  name="expertiseArea"
                 />
               )}
             />
@@ -95,6 +124,12 @@ export default function AddAnimator() {
         <Button type="submit" variant="contained" sx={{ mt: 5, mb: 3 }}>
           Add
         </Button>
+        {error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            An error ocurred, please try again.
+          </Alert>
+        )}
       </Stack>
     </Box>
   );
