@@ -27,7 +27,8 @@ const handleSubmit = async (
   });
 
   if (response.status === 200) {
-    console.log("Success");
+    const customer: Customer = await response.json();
+    console.log("Success", customer);
     setError(false);
   } else {
     setError(true);

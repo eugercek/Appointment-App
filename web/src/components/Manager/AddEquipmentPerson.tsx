@@ -17,7 +17,6 @@ const handleSubmit = async (
   setError: any
 ) => {
   e.preventDefault();
-  console.log(equipmentPerson);
   const response = await fetch("http://localhost:8080/equip-persons", {
     method: "POST",
     headers: {

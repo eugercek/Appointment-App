@@ -22,4 +22,7 @@ public interface CustomerJPARepository extends JpaRepository<Customer, Integer> 
     @Modifying
     @Query(value ="INSERT INTO customer(id, name, age, room_number, contact_phone, passwd) values (:#{#customer.id},:#{#customer.name},:#{#customer.age},:#{#customer.roomNumber},:#{#customer.contactPhone},:#{#customer.passwd} );", nativeQuery = true)
     int addCustomerWithId(@Param("customer") Customer customer);
+
+    @Query(value = "SELECT * FROM customer where contact_phone = :phone", nativeQuery = true)
+    Customer getCustomerByPhoneNumber(String phone);
 }

@@ -6,6 +6,8 @@ import {
   Link,
   Button,
   Autocomplete,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import { Paper } from "@mui/material";
 import { useState } from "react";
@@ -16,6 +18,7 @@ import { UserRole } from "../../types/Login";
 interface ChildProps {
   setToken: React.Dispatch<React.SetStateAction<string>>;
   setRole: React.Dispatch<React.SetStateAction<UserRole>>;
+  role: UserRole;
 }
 
 const users: { name: UserRole; type: "Worker" | "Client" }[] = [
@@ -33,27 +36,28 @@ const users: { name: UserRole; type: "Worker" | "Client" }[] = [
   },
 ];
 
-export default function LoginPage({ setToken, setRole }: ChildProps) {
-  const [email, setEmail] = useState("");
+export default function LoginPage({ setToken, setRole, role }: ChildProps) {
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // const token = await loginUser({
-    //   email,
-    //   password,
-    //   role,
-    // });
-    setToken(`${email}:${password}`);
-    // TODO Bind with backend
-    // const token = await loginUser({
-    //   email,
-    //   password,
-    //   role,
-    // });
-    // console.log(role);
+    const token: string = await loginUser({
+      phone,
+      password,
+      role,
+    });
+
+    if (token !== "error") {
+      console.log("Token: ", token);
+      setToken(token);
+    } else {
+      setError(true);
+    }
   };
+
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
@@ -113,12 +117,12 @@ export default function LoginPage({ setToken, setRole }: ChildProps) {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="phone"
+              label="Phone Number"
+              name="phone"
+              autoComplete="tel"
               autoFocus
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -153,6 +157,13 @@ export default function LoginPage({ setToken, setRole }: ChildProps) {
             </Grid>
           </Box>
         </Box>
+
+        {error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Login Error
+          </Alert>
+        )}
       </Grid>
     </Grid>
   );

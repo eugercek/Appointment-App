@@ -10,7 +10,6 @@ import {
 import "./Add.css";
 
 export default function ButtonCard({ name, to }: { name: string; to: string }) {
-  console.log(name, to);
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>

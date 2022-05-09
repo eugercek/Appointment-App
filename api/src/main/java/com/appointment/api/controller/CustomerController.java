@@ -1,6 +1,7 @@
 package com.appointment.api.controller;
 
 import com.appointment.api.model.Customer;
+import com.appointment.api.model.Token;
 import com.appointment.api.repository.customer.CustomerJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/customers")
@@ -56,6 +58,24 @@ public class CustomerController {
         } catch (Exception e){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Can not create customer.");
+        }
+    }
+
+    @PostMapping("/login")
+    public int loginCustomer(@RequestBody Token token) {
+        try {
+            Customer customer = repo.getCustomerByPhoneNumber(token.getPhone());
+            System.out.println(customer.getContactPhone());
+            if(customer == null || !customer.getPasswd().equals(token.getPassword())){
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Error");
+            }
+
+            return (int) (Math.random() * 10000);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Error");
         }
     }
 }

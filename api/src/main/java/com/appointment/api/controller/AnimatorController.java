@@ -1,7 +1,9 @@
 package com.appointment.api.controller;
 
 import com.appointment.api.model.Animator;
+import com.appointment.api.model.Customer;
 import com.appointment.api.model.ExpertiseArea;
+import com.appointment.api.model.Token;
 import com.appointment.api.repository.animator.AnimatorJPARepository;
 import com.appointment.api.repository.animator.ExpertiseAreaJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +75,23 @@ public class AnimatorController {
         } catch (Exception e){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Can not create animator.");
+        }
+    }
+
+    @PostMapping("/login")
+    public int loginCustomer(@RequestBody Token token) {
+        try {
+            Animator animator = animatorRepo.getAnimatorByPhoneNumber(token.getPhone());
+            if(animator == null || !animator.getPasswd().equals(token.getPassword())){
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Error");
+            }
+
+            return (int) (Math.random() * 10000);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Error");
         }
     }
 }

@@ -11,7 +11,7 @@ export default function App() {
   const [role, setRole] = useState<UserRole>(UserRole.Customer);
 
   if (token === "") {
-    return <LoginPage setToken={setToken} setRole={setRole} />;
+    return <LoginPage setToken={setToken} setRole={setRole} role={role} />;
   }
 
   switch (role) {

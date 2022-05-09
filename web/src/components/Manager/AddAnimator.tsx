@@ -19,7 +19,6 @@ const handleSubmit = async (
   setError: any
 ) => {
   e.preventDefault();
-  console.log(animator);
   const response = await fetch("http://localhost:8080/animators", {
     method: "POST",
     headers: {
@@ -30,7 +29,8 @@ const handleSubmit = async (
   });
 
   if (response.status === 200) {
-    console.log("Success");
+    const animator: Animator = await response.json();
+    console.log("Success", animator);
     setError(false);
   } else {
     setError(true);

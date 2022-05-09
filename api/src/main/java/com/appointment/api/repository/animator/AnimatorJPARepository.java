@@ -1,6 +1,7 @@
 package com.appointment.api.repository.animator;
 
 import com.appointment.api.model.Animator;
+import com.appointment.api.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +24,7 @@ public interface AnimatorJPARepository extends JpaRepository<Animator, Integer> 
     @Modifying
     @Query(value = "INSERT INTO animator(employee_id ,name, phone_number, expertise_area) values (:#{#animator.id},:#{#animator.name},:#{#animator.phoneNumber},:#{#animator.expertiseArea});", nativeQuery = true)
     int addAnimatorWithId(@Param("animator") Animator animator);
+
+    @Query(value = "SELECT * FROM animator where phone_number = :phone", nativeQuery = true)
+    Animator getAnimatorByPhoneNumber(String phone);
 }
