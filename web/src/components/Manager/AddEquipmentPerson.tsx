@@ -1,27 +1,47 @@
-import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { EquipmentPerson } from "../../types/Login";
 
-const handleSubmit = (
+const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  equipmentPerson: EquipmentPerson
+  equipmentPerson: EquipmentPerson,
+  setError: any
 ) => {
-  fetch("http://localhost:8080/add/equip-person", {
+  e.preventDefault();
+  console.log(equipmentPerson);
+  const response = await fetch("http://localhost:8080/equip-persons", {
     method: "POST",
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(equipmentPerson),
-  })
-    .then((res) => res.json())
-    .then((res) => console.log(res));
+  });
+
+  if (response.status === 200) {
+    console.log("Success");
+    setError(false);
+  } else {
+    setError(true);
+    console.log("Error!!!!!");
+  }
 };
 
 export default function AddEquipmentPerson() {
   const [equipmentPerson, setEquipmentPerson] = useState<EquipmentPerson>(
     {} as EquipmentPerson
   );
+
+  const [error, setError] = useState<false>(false);
 
   const handler = (e: any) => {
     setEquipmentPerson({ ...equipmentPerson, [e.target.name]: e.target.value });
@@ -30,7 +50,7 @@ export default function AddEquipmentPerson() {
   return (
     <Box
       component="form"
-      onSubmit={(e: any) => handleSubmit(e, equipmentPerson)}
+      onSubmit={(e: any) => handleSubmit(e, equipmentPerson, setError)}
     >
       <Stack m={5} mt={20} alignItems="center">
         <Typography variant="h6" gutterBottom>
@@ -44,7 +64,7 @@ export default function AddEquipmentPerson() {
               label="SSN"
               fullWidth
               variant="standard"
-              name="ssn"
+              name="id"
               onChange={handler}
             />
           </Grid>
@@ -79,7 +99,7 @@ export default function AddEquipmentPerson() {
               fullWidth
               type="tel"
               variant="standard"
-              name="phone"
+              name="contactPhone"
               onChange={handler}
             />
           </Grid>
@@ -87,6 +107,12 @@ export default function AddEquipmentPerson() {
         <Button type="submit" variant="contained" sx={{ mt: 5, mb: 3 }}>
           Add
         </Button>
+        {error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            An error ocurred, please try again. Customer not added.
+          </Alert>
+        )}
       </Stack>
     </Box>
   );

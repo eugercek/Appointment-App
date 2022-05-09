@@ -120,7 +120,7 @@ export default function AddCustomer() {
         {error && (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
-            An error ocurred, please try again. Customer not added.
+            An error ocurred, please try again.
           </Alert>
         )}
       </Stack>

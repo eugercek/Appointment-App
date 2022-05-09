@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/customers")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class CustomerAPI {
+public class CustomerController {
     @Autowired
     private CustomerJPARepository repo;
 
