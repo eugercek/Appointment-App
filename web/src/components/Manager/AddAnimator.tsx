@@ -14,21 +14,14 @@ import { Animator } from "../../types/Login";
 // TODO Bind to backend to fetch expertise areas
 const expertiseAreas = ["Animation", "Art", "Design", "Film", "Photography"];
 
-const handleSubmit = (
+const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
   animator: Animator
 ) => {
   e.preventDefault();
-  fetch("http://localhost:8080/customer/hi", {
-    method: "POST",
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(animator),
-  })
-    .then((res) => res.json())
-    .then((res) => console.log(res));
+  const response = await fetch("http://localhost:8080/customer/1");
+  const customers = await response.json();
+  console.log(customers);
 };
 
 export default function AddAnimator() {
@@ -74,10 +67,11 @@ export default function AddAnimator() {
               id="phoneNumber"
               label="Phone Number"
               fullWidth
-              type="tel"
+              type="number"
               variant="standard"
               name="phone"
               onChange={handler}
+              inputProps={{ maxLength: 10 }}
             />
           </Grid>
           <Grid item xs={12}>
