@@ -29,8 +29,7 @@ const handleSubmit = async (
   });
 
   if (response.status === 200) {
-    const animator: Animator = await response.json();
-    console.log("Success", animator);
+    console.log("Success");
     setError(false);
   } else {
     setError(true);
@@ -96,7 +95,7 @@ export default function AddAnimator() {
               variant="standard"
               name="phoneNumber"
               onChange={handler}
-              inputProps={{ maxLength: 10 }}
+              inputProps={{ maxLength: 10, minLength: 10 }}
             />
           </Grid>
           <Grid item xs={12}>

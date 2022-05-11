@@ -122,6 +122,7 @@ export default function LoginPage({ setToken, setRole, role }: ChildProps) {
               name="phone"
               autoComplete="tel"
               autoFocus
+              inputProps={{ maxLength: 10, minLength: 10 }}
               onChange={(e) => setPhone(e.target.value)}
             />
             <TextField

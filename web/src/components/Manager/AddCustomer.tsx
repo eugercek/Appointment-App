@@ -111,7 +111,7 @@ export default function AddCustomer() {
               name="contactPhone"
               variant="standard"
               onChange={handler}
-              inputProps={{ maxLength: 10 }}
+              inputProps={{ maxLength: 10, minLength: 10 }}
             />
           </Grid>
         </Grid>

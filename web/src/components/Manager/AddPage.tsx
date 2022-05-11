@@ -1,5 +1,5 @@
 import { Box, Grid, Stack } from "@mui/material";
-import ButtonCard from "./ButtonCard";
+import ButtonCard from "../ButtonCard";
 
 export default function AddPage() {
   // TODO Add emojis for links
@@ -11,9 +11,13 @@ export default function AddPage() {
     >
       <Box textAlign="center">
         <Stack spacing={5} direction={"row"}>
-          <ButtonCard name="Animator" to="/add/animator/" />
-          <ButtonCard name="Equipment Person" to="/add/equipment-person/" />
-          <ButtonCard name="Customer" to="/add/customer" />
+          <ButtonCard name="Animator" to="/add/animator/" text="Add" />
+          <ButtonCard
+            name="Equipment Person"
+            to="/add/equipment-person/"
+            text="Add"
+          />
+          <ButtonCard name="Customer" to="/add/customer" text="Add" />
         </Stack>
       </Box>
     </Grid>

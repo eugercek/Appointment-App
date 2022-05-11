@@ -31,3 +31,15 @@ export interface EquipmentPerson {
   surname: string;
   contact_phone: string;
 }
+export type ActivityTypes = "Mass" | "Individual"
+
+export interface IndividualActivity {
+  name: string;
+  internetLink: string;
+  ageRequirement: number;
+}
+export interface MassActivity {
+  name: string;
+  internetLink: string;
+  capacity: number;
+}

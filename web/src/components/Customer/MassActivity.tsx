@@ -7,6 +7,7 @@ export default function MassActivity({}) {
   const handler = (e: any) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
+
   return (
     <Grid container spacing={3} maxWidth={500} ml={20}>
       <Grid item xs={12}>

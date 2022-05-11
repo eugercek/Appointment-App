@@ -5,6 +5,7 @@ import { useState } from "react";
 import { UserRole } from "./types/Login";
 import AddPage from "./components/Manager/AddPage";
 import ErrorPage from "./components/Error/ErrorPage";
+import AnimatorPage from "./components/Animator/AnimatorPage";
 
 export default function App() {
   const [token, setToken] = useState<string>("");
@@ -17,6 +18,8 @@ export default function App() {
   switch (role) {
     case UserRole.Manager:
       return <AddPage />;
+    case UserRole.Animator:
+      return <AnimatorPage />;
     default:
       return <ErrorPage />;
   }

@@ -100,6 +100,7 @@ export default function AddEquipmentPerson() {
               variant="standard"
               name="contactPhone"
               onChange={handler}
+              inputProps={{ maxLength: 10, minLength: 10 }}
             />
           </Grid>
         </Grid>

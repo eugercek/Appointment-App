@@ -59,11 +59,6 @@ public class AnimatorController {
     @PostMapping("")
     @Transactional
     public void saveAnimator(@RequestBody  Animator animator){
-        System.out.println("animator.getName() = " + animator.getName());
-        System.out.println("animator.getId() = " + animator.getId());
-        System.out.println("animator.getPasswd() = " + animator.getPasswd());
-        System.out.println("animator.getPhoneNumber() = " + animator.getPhoneNumber());
-        System.out.println("animator.getExpertiseArea() = " + animator.getExpertiseArea());
         try {
             // -1 is convention for not entered ID
             if(animator.getId() == -1){

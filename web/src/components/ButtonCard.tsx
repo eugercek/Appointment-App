@@ -9,7 +9,15 @@ import {
 
 import "./Add.css";
 
-export default function ButtonCard({ name, to }: { name: string; to: string }) {
+export default function ButtonCard({
+  name,
+  to,
+  text,
+}: {
+  name: string;
+  to: string;
+  text: string;
+}) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -24,7 +32,7 @@ export default function ButtonCard({ name, to }: { name: string; to: string }) {
       </CardContent>
       <CardActions className="action">
         <Button size="large" style={{ textTransform: "none" }}>
-          <Link href={to}>Add</Link>
+          <Link href={to}>{text}</Link>
         </Button>
       </CardActions>
     </Card>
