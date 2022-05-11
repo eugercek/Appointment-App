@@ -5,7 +5,7 @@ import App from "./App";
 import AddCustomer from "./components/Manager/AddCustomer";
 import AddAnimator from "./components/Manager/AddAnimator";
 import AddEquipmentPerson from "./components/Manager/AddEquipmentPerson";
-import AppointmentScreen from "./components/Customer/AppointmentScreen";
+import AppointmentScreen from "./components/Customer/Appointmentpage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,7 +19,6 @@ root.render(
       <Route path="/add/animator" element={<AddAnimator />} />
       <Route path="/add/customer" element={<AddCustomer />} />
       <Route path="/add/equipment-person" element={<AddEquipmentPerson />} />
-      <Route path="foo" element={<AppointmentScreen />} />
       <Route
         path="*"
         element={

@@ -19,6 +19,7 @@ interface ChildProps {
   setToken: React.Dispatch<React.SetStateAction<string>>;
   setRole: React.Dispatch<React.SetStateAction<UserRole>>;
   role: UserRole;
+  setUserId: any;
 }
 
 const users: { name: UserRole; type: "Worker" | "Client" }[] = [
@@ -36,7 +37,12 @@ const users: { name: UserRole; type: "Worker" | "Client" }[] = [
   },
 ];
 
-export default function LoginPage({ setToken, setRole, role }: ChildProps) {
+export default function LoginPage({
+  setToken,
+  setRole,
+  role,
+  setUserId,
+}: ChildProps) {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -44,17 +50,23 @@ export default function LoginPage({ setToken, setRole, role }: ChildProps) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const token: string = await loginUser({
-      phone,
-      password,
-      role,
-    });
+    try {
+      const token: string = await loginUser({
+        phone,
+        password,
+        role,
+      });
 
-    if (token !== "error") {
-      console.log("Token: ", token);
-      setToken(token);
-    } else {
+      if (token !== "error") {
+        console.log("Token: ", token);
+        setToken(token);
+        setUserId(token);
+      } else {
+        setError(true);
+      }
+    } catch (e: any) {
       setError(true);
+      console.log(e.getMessage());
     }
   };
 

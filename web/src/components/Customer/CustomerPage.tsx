@@ -1,11 +1,14 @@
 import { Autocomplete, Grid, TextField } from "@mui/material";
 import { useState } from "react";
+import AppointmentPage from "./Appointmentpage";
 import ChildrenActivities from "./ChildrenActivities";
 
-const options = ["Children"];
+const options = ["Appointment", "Children"];
 
-export default function CustomerPage() {
-  const [selection, setSelection] = useState<"Children">("Children");
+export default function CustomerPage({ userId }: { userId: number }) {
+  const [selection, setSelection] = useState<"Appointment" | "Children">(
+    "Appointment"
+  );
 
   return (
     <Grid p={5}>
@@ -24,6 +27,9 @@ export default function CustomerPage() {
         }}
       />
       <Grid mt={2}>{selection === "Children" && <ChildrenActivities />}</Grid>
+      <Grid mt={2}>
+        {selection === "Appointment" && <AppointmentPage userId={userId} />}
+      </Grid>
     </Grid>
   );
 }

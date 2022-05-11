@@ -1,13 +1,14 @@
 import { Autocomplete, Grid, TextField } from "@mui/material";
 import { useState } from "react";
-import MassActivity from "./MassActivity";
+import MassActivity from "./MassActivityPage";
 import { ActivityTypes } from "../../types/Login";
 
 const activityTypes = ["Mass", "Individual"];
 
-export default function AppointmentScreen() {
+export default function AppointmentScreen({ userId }: { userId: number }) {
   const [activity, setActivity] = useState<ActivityTypes>("Mass");
 
+  console.log(userId);
   return (
     <Grid container spacing={2} m={10}>
       <Autocomplete
@@ -23,7 +24,7 @@ export default function AppointmentScreen() {
           setActivity(newValue);
         }}
       />
-      {activity === "Mass" && <MassActivity />}
+      {activity === "Mass" && <MassActivity customerId={userId} />}
     </Grid>
   );
 }

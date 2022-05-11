@@ -27,6 +27,7 @@ public class EquipmentController {
     @Transactional
     public void saveEquipment(@RequestBody EquipmentRequest equipment){
         try {
+            System.out.println(equipment.getEquipPersonSsn());
             repo.addEquipment(equipment.getEquipPersonSsn(), equipment.getName(), equipment.getPurpose());
         } catch (Exception e){
             System.out.println(e.getMessage());

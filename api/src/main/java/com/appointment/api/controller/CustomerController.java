@@ -70,7 +70,7 @@ public class CustomerController {
                         HttpStatus.BAD_REQUEST, "Error");
             }
 
-            return (int) (Math.random() * 10000);
+            return customer.getId();
         }catch (Exception e){
             System.out.println(e.getMessage());
             throw new ResponseStatusException(

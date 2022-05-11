@@ -11,9 +11,17 @@ import CustomerPage from "./components/Customer/CustomerPage";
 export default function App() {
   const [token, setToken] = useState<string>("");
   const [role, setRole] = useState<UserRole>(UserRole.Customer);
+  const [userId, setUserId] = useState<number>(0);
 
   if (token === "") {
-    return <LoginPage setToken={setToken} setRole={setRole} role={role} />;
+    return (
+      <LoginPage
+        setToken={setToken}
+        setRole={setRole}
+        role={role}
+        setUserId={setUserId}
+      />
+    );
   }
 
   switch (role) {
@@ -22,7 +30,7 @@ export default function App() {
     case UserRole.Animator:
       return <AnimatorPage />;
     case UserRole.Customer:
-      return <CustomerPage />;
+      return <CustomerPage userId={userId} />;
     default:
       return <ErrorPage />;
   }

@@ -91,7 +91,6 @@ export default function AddAnimator() {
               id="phoneNumber"
               label="Phone Number"
               fullWidth
-              type="number"
               variant="standard"
               name="phoneNumber"
               onChange={handler}
