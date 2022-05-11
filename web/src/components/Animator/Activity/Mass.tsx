@@ -1,12 +1,10 @@
 import { Button, Grid, TextField, Alert, AlertTitle } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { IndividualActivity } from "../../types/Login";
+import { MassActivity } from "../../../types/Login";
 
-export default function Individual() {
-  const [state, setState] = useState<IndividualActivity>(
-    {} as IndividualActivity
-  );
+export default function Mass() {
+  const [state, setState] = useState<MassActivity>({} as MassActivity);
   const [error, setError] = useState<false>(false);
 
   const handler = (e: any) => {
@@ -41,15 +39,15 @@ export default function Individual() {
           <TextField
             required
             id="date"
-            label="Age Requirement"
+            label="Capacity"
             fullWidth
             variant="standard"
             type="number"
-            name="ageRequirement"
+            name="capacity"
             onChange={handler}
           />
           <Button type="submit" variant="contained" sx={{ mt: 5, mb: 3 }}>
-            Add Individual Activity
+            Add Mass Activity
           </Button>
         </Grid>
         {error && (
@@ -65,12 +63,12 @@ export default function Individual() {
 
 const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  activity: IndividualActivity,
+  activity: MassActivity,
   setError: any
 ) => {
   e.preventDefault();
 
-  const response = await fetch("http://localhost:8080/activity/individual", {
+  const response = await fetch("http://localhost:8080/activity/mass", {
     method: "POST",
     headers: {
       Accept: "application/json, text/plain, */*",

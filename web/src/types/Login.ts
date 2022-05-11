@@ -1,3 +1,5 @@
+import internal from "stream";
+
 export interface User {
   phone: string;
   password: string;
@@ -42,4 +44,20 @@ export interface MassActivity {
   name: string;
   internetLink: string;
   capacity: number;
+}
+
+export interface Activity {
+  name: string;
+  id: number;
+}
+
+export interface Emergency {
+  activityId: number;
+  phoneNumber: string;
+  lockerNumber: number;
+}
+export interface Equipment {
+  name: string;
+  purpose: string;
+  ssn: number;
 }

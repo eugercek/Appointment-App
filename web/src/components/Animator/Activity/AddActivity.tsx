@@ -1,6 +1,6 @@
 import { Autocomplete, Grid, TextField } from "@mui/material";
 import { useState } from "react";
-import { ActivityTypes } from "../../types/Login";
+import { ActivityTypes } from "../../../types/Login";
 import Individual from "./Individual";
 import Mass from "./Mass";
 

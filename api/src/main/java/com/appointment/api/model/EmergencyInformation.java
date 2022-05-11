@@ -1,32 +1,20 @@
 package com.appointment.api.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "emergency_information")
 public class EmergencyInformation {
-    @EmbeddedId
-    private EmergencyInformationId id;
+    @Id
+    @Column(name = "activity_id", nullable = false)
+    private Integer activityId;
 
-    @MapsId("activityId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "activity_id", nullable = false)
-    private Activity activity;
+    @Column(name = "phone_number", nullable = false, length = 10)
+    private String phoneNumber;
 
-    public EmergencyInformationId getId() {
-        return id;
-    }
-
-    public void setId(EmergencyInformationId id) {
-        this.id = id;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
-
+    @Column(name = "locker_number", nullable = false)
+    private Integer lockerNumber;
 }
