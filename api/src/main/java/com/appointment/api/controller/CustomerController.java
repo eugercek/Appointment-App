@@ -10,7 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/customers")
@@ -76,6 +75,16 @@ public class CustomerController {
             System.out.println(e.getMessage());
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Error");
+        }
+    }
+
+    @GetMapping("/children")
+    public Object[] getChildrenActivities(){
+        try {
+            return repo.getChildrenActivities();
+        } catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Can not get activities.");
         }
     }
 }

@@ -25,4 +25,7 @@ public interface CustomerJPARepository extends JpaRepository<Customer, Integer> 
 
     @Query(value = "SELECT * FROM customer where contact_phone = :phone", nativeQuery = true)
     Customer getCustomerByPhoneNumber(String phone);
+
+    @Query(value = "SELECT * FROM children_activities", nativeQuery = true)
+    Object[] getChildrenActivities();
 }

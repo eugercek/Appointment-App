@@ -6,6 +6,7 @@ import { UserRole } from "./types/Login";
 import AddPage from "./components/Manager/AddPage";
 import ErrorPage from "./components/Error/ErrorPage";
 import AnimatorPage from "./components/Animator/AnimatorPage";
+import CustomerPage from "./components/Customer/CustomerPage";
 
 export default function App() {
   const [token, setToken] = useState<string>("");
@@ -20,6 +21,8 @@ export default function App() {
       return <AddPage />;
     case UserRole.Animator:
       return <AnimatorPage />;
+    case UserRole.Customer:
+      return <CustomerPage />;
     default:
       return <ErrorPage />;
   }
